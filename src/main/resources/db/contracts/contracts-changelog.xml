@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet author="Freeman" id="1">
+        <createTable tableName="CONTRACTS">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="SUM" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NUMBER" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RATE_CODE" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Freeman" id="2">
+        <insert tableName="CONTRACTS">
+            <column name="SUM" valueNumeric="1123"/>
+            <column name="NUMBER" value="Q124-35FR-152"/>
+            <column name="RATE_CODE" value="A001"/>
+        </insert>
+        <insert tableName="CONTRACTS">
+            <column name="SUM" valueNumeric="117846523"/>
+            <column name="NUMBER" value="Q124-35FR-153"/>
+            <column name="RATE_CODE" value="B001"/>
+        </insert>
+        <insert tableName="CONTRACTS">
+            <column name="SUM" valueNumeric="1113823"/>
+            <column name="NUMBER" value="A147-152"/>
+            <column name="RATE_CODE" value="C001"/>
+        </insert>
+        <insert tableName="CONTRACTS">
+            <column name="SUM" valueNumeric="18752"/>
+            <column name="NUMBER" value="G2421545-3"/>
+            <column name="RATE_CODE" value="A001"/>
+        </insert>
+        <insert tableName="CONTRACTS">
+            <column name="SUM" valueNumeric="113561623"/>
+            <column name="NUMBER" value="G2421545-4"/>
+            <column name="RATE_CODE" value="A002"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="Freeman" id="3">
+        <createTable tableName="AUDIT">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="IP_ADDRESS" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ENDPOINT" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PARAMETERS" type="VARCHAR">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CREATED_TIMESTAMP" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

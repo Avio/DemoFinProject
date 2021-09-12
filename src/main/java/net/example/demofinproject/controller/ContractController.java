@@ -1,6 +1,6 @@
 package net.example.demofinproject.controller;
 
-import net.example.demofinproject.model.Contract;
+import net.example.demofinproject.model.ContractDTO;
 import net.example.demofinproject.service.ContractService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,14 +14,19 @@ import java.util.List;
 @RequestMapping("/contracts")
 public class ContractController {
 
-    private ContractService contractService;
+    final ContractService contractService;
 
     public ContractController(ContractService contractService) {
         this.contractService = contractService;
     }
 
+    @GetMapping
+    List<ContractDTO> getAllContracts() {
+        return contractService.getAllContracts();
+    }
+
     @GetMapping(value = "/contract/{id}", produces = "application/json")
-    public Contract getContractByNumber(@PathVariable("id") String id){
+    public ContractDTO getContractByNumber(@PathVariable("id") String id){
         return contractService.getContractByNumber(id);
     }
 

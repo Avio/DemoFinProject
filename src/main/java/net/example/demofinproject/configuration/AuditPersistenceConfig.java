@@ -1,8 +1,6 @@
 package net.example.demofinproject.configuration;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -15,18 +13,12 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration(proxyBeanMethods = false)
-@EnableJpaRepositories(basePackages = "net.example.demofinproject.repository.contract",
-        entityManagerFactoryRef = "contractEntityManager",
-        transactionManagerRef = "contractTransactionManager")
-public class ContractPersistenceConfig {
+@EnableJpaRepositories(basePackages = "net.example.demofinproject.repository.audit",
+        entityManagerFactoryRef = "auditEntityManager",
+        transactionManagerRef = "auditTransactionManager")
+public class AuditPersistenceConfig {
 
-    @Bean(name = "contractDS")
-    @ConfigurationProperties(prefix="app.datasource")
-    public DataSource contractDataSource() {
-        return DataSourceBuilder.create().build();
-    }
-
-    @Bean(name = "contractEntityManager")
+    @Bean(name = "auditEntityManager")
     public LocalContainerEntityManagerFactoryBean contractEntityManager(@Qualifier("contractDS") DataSource dataSource) {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
@@ -44,10 +36,11 @@ public class ContractPersistenceConfig {
         return em;
     }
 
-    @Bean(name = "contractTransactionManager")
-    public JpaTransactionManager transactionManager(@Qualifier("contractEntityManager") EntityManagerFactory contractEntityManager){
+    @Bean(name = "auditTransactionManager")
+    public JpaTransactionManager transactionManager(@Qualifier("auditEntityManager") EntityManagerFactory contractEntityManager){
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(contractEntityManager);
         return transactionManager;
     }
+
 }

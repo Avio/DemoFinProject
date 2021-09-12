@@ -1,11 +1,11 @@
 package net.example.demofinproject.repository.contract;
 
 
-import net.example.demofinproject.model.Contract;
+import net.example.demofinproject.model.ContractEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ContractRepository extends JpaRepository<Contract, Integer>{
+public interface ContractRepository extends JpaRepository<ContractEntity, Integer>{
 
-    Contract findContractByNumber(String number);
+    ContractEntity findContractByNumber(String number);
 
 }

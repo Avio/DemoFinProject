@@ -36,6 +36,10 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
@@ -48,7 +52,33 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.4.3</version>
+                <configuration>
+                    <propertyFile>${liquibase.propertyFile}</propertyFile>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>liquibase-contracts</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <liquibase.propertyFile>src/main/resources/db/contracts/liquibase.properties</liquibase.propertyFile>
+            </properties>
+        </profile>
+        <profile>
+            <id>liquibase-rates</id>
+            <properties>
+                <liquibase.propertyFile>src/main/resources/db/rates/liquibase.properties</liquibase.propertyFile>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
